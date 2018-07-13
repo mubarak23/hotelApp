@@ -3,8 +3,8 @@
 @section('content')
 <div class="row">
       <div class="medium-12 large-12 columns">
-        <h4>{{ $modify == 1 ? 'Modify Client' : 'New Client'}}</h4>
-        <form action="{{ $modify == 1 ? route('update_client', ['client_id' => $client_id]) : route('create_client') }}" method="post">
+        <h4>New Client</h4>
+        <form action="{{ route('create_client') }}" method="post">
           <div class="medium-4  columns">
             <label>Title</label>
             <select name="title">
@@ -44,7 +44,7 @@
           </div>
           <div class="medium-4  columns">
             <label>State</label>
-            <input name="state" type="text" value="{{ old('state') ? old('state') : $state }}">
+            <input name="state" type="text" value="{{ old('state') }}">
 
             <small class="error">{{ $errors->first('city')}}</small>
           </div>
