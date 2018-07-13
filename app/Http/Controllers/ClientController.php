@@ -83,26 +83,65 @@ class ClientController extends Controller
     	return view('client/create');
     }
 
+
     public function show($client_id){
     	$data = [];
-      
+
 
     	$data['titles'] = $this->titles;
     	$data['modify'] = 1;
 
       $client_data = Client::find($client_id);
 
+      $data['id'] = $client_data->id;
       $data['name'] = $client_data->name;
       $data['last_name']   = $client_data->last_name;
-      $data['state']  = $client_data->zipcode;
+      $data['state']  = $client_data->state;
       $data['zipcode'] = $client_data->zip_code;
       $data['email'] = $client_data->email;
       $data['city'] = $client_data->city;
       $data['address']   =  $client_data->address;
       
 
-    		return view('client/form', $data);
+    		return view('client/edit', $data);
     
     }
+
+
+    public function modify(Request $request, $client_id){
+
+      $data = $request->all();
+
+      $modify  = Client::find($client_id);
+
+      $modify->name = $data['name'];
+      $modify->title = $data['title'];
+      $modify->last_name = $data['last_name'];
+      $modify->address = $data['address'];
+      $modify->zip_code = $data['zipcode'];
+      $modify->email = $data['email'];
+      $modify->city = $data['city'];
+      $modify->state = $data['state'];
+
+
+     /* $modify->save();
+      redirect('/clients');
+*/
+      if($modify->save()){
+
+        return redirect('clients');
+
+      }else{
+
+        return redirect('/');
+
+      }
+
+
+
+
+    }
+
+
 
 }
